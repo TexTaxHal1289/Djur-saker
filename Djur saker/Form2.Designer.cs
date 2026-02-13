@@ -50,6 +50,7 @@
             this.Nummerperson.Name = "Nummerperson";
             this.Nummerperson.Size = new System.Drawing.Size(232, 26);
             this.Nummerperson.TabIndex = 1;
+           
             // 
             // label1
             // 
@@ -78,7 +79,7 @@
             this.RegisterAdoption.Text = "Adoptera ditt djur!";
             this.RegisterAdoption.UseVisualStyleBackColor = true;
             this.RegisterAdoption.Click += new System.EventHandler(this.RegisterAdoption_Click);
-            
+            // 
             // efternamn
             // 
             this.efternamn.Location = new System.Drawing.Point(35, 148);

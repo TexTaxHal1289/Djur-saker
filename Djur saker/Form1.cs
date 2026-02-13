@@ -1,4 +1,5 @@
-﻿using Djurhundar_saker;
+﻿using Microsoft.VisualBasic;
+using Djurhundar_saker;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +14,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace Djur_saker
 {
@@ -39,7 +41,7 @@ namespace Djur_saker
         }
 
         private void Form1_Closing(object sender, FormClosingEventArgs e)
-        {
+        {       //sparar listboxform1 informationen när man stänger
             using (StreamWriter sw = new StreamWriter(savefile, false))
             {
                 foreach (var item in listBox1.Items)
@@ -59,7 +61,7 @@ namespace Djur_saker
         private void Form1_Load(object sender, EventArgs e)
         {
 
-
+            // laddar up de sparade filerna
             if (File.Exists(savefile))
             {
                 listBox1.Items.Clear();
@@ -71,7 +73,7 @@ namespace Djur_saker
         }
 
 
-       
+
 
 
 
@@ -97,9 +99,9 @@ namespace Djur_saker
             valdDjurTyp = "Hund";
 
             Hundar2 hund = new Hundar2();
-          
 
-            
+
+
             SortByAnimalType();
 
             groupBox1.Visible = true;
@@ -114,8 +116,8 @@ namespace Djur_saker
         {
             Fogel fågel = new Fogel();
             valdDjurTyp = "Fågel";
-                
-                groupBox1.Visible = true;
+
+            groupBox1.Visible = true;
 
             kastrerad.Visible = false;
             rovfågel.Visible = true;
@@ -123,7 +125,7 @@ namespace Djur_saker
 
 
         }
-
+        //ta bort ett djur från listbox1 
         private void Btntabort_Click(object sender, EventArgs e)
         {
             if (listBox1.SelectedItem != null)
@@ -146,7 +148,7 @@ namespace Djur_saker
         {
             public string DjurInfo { get; set; }
             public string Person { get; set; }
-
+            //returnerar information om djuret och personen som adopterade det
             public override string ToString()
             {
                 return $"{DjurInfo} | Adopterad av: {Person}";
@@ -155,27 +157,27 @@ namespace Djur_saker
 
         private void SortByAnimalType()
         {
-            // Definiera ordningen: Hund (1), Katt (2), Fågel (3)
+            // Definierar  ordningen av djur Hund (1), Katt (2), Fågel (3)
             int GetTypeOrder(string item)
             {
                 if (item.StartsWith("Hund", StringComparison.OrdinalIgnoreCase)) return 1;
                 if (item.StartsWith("Katt", StringComparison.OrdinalIgnoreCase)) return 2;
                 if (item.StartsWith("Fågel", StringComparison.OrdinalIgnoreCase)) return 3;
-                return 99; // okända längst ner
+                return 99; // okända
             }
 
             var sorted = listBox1.Items.Cast<string>()
                 .OrderBy(x => GetTypeOrder(x))
-                .ThenBy(x => x)   
+                .ThenBy(x => x)
                 .ToList();
 
-           
+
             foreach (var s in sorted)
             {
             }
 
         }
-
+        //knappen föratt komma till form2 / skriva in sin personliga information
         private void adoptera_Click(object sender, EventArgs e)
         {
 
@@ -186,18 +188,18 @@ namespace Djur_saker
             }
 
             string valtDjur = listBox1.SelectedItem.ToString();
-            
-            Form2 form2 = new Form2(valtDjur); 
+
+            Form2 form2 = new Form2(valtDjur);
             this.Hide();
 
-           
-            
+
+
             if (form2.ShowDialog() == DialogResult.OK)
             {
                 this.Show();
             }
         }
-
+        // knapp för att lägga till nya djuret med all information om sig
         private void LÄGGTILL_Click(object sender, EventArgs e)
         {
 
@@ -234,7 +236,7 @@ namespace Djur_saker
                     MessageBox.Show("Fel: Djuret skapades inte.");
                     return;
                 }
-
+                // informationen som matas in i textboxarna och checkboxarna
                 nyttDjur.namn = Namnbox1.Text;
                 nyttDjur.färg = Färgbox1.Text;
                 nyttDjur.ålder = ålder;
@@ -242,13 +244,15 @@ namespace Djur_saker
                 nyttDjur.favoritmat = favmatbox1.Text;
                 nyttDjur.kastrerad = kastrerad.Checked;
                 nyttDjur.vaccinerad = vaccinerad.Checked;
+                nyttDjur.djurtyp = valdDjurTyp;
 
                 listBox1.Items.Add(nyttDjur.Geinfo());
                 groupBox1.Visible = false;
             }
         }
 
-            private void History_Click(object sender, EventArgs e)
+        // historik knappen
+        private void History_Click(object sender, EventArgs e)
         {
             historydesign historydesign = new historydesign();
             this.Hide();
@@ -258,13 +262,62 @@ namespace Djur_saker
             }
         }
 
-        public void Uppdatera_Click(object sender, EventArgs e)
-        {
+        
 
+        private void Redigerapris_Click(object sender, EventArgs e)
+        
+        {
+            // Kontroll: djur valt
+            if (listBox1.SelectedItem == null)
+            {
+                MessageBox.Show("Välj ett djur först!");
+                return;
+            }
+
+            string gammalText = listBox1.SelectedItem.ToString();
+
+            // Hämtar nuvarande pris
+            Match match = Regex.Match(gammalText, @"Pris:\s*(\d+)");
+            string nuvarandePris = match.Success ? match.Groups[1].Value : "";
+
+            // popup-box för att kunna skriva in nytt pris
+            string input = Interaction.InputBox(
+                "Skriv nytt pris:",
+                "Redigera pris",
+                nuvarandePris
+            );
+
+            // Avbryt
+            if (string.IsNullOrWhiteSpace(input))
+                return;
+
+            // Kontroll: nummer
+            if (!int.TryParse(input, out int nyttPris))
+            {
+                MessageBox.Show("Pris måste vara ett nummer!");
+                return;
+            }
+
+           //gör så att nya priset ersätter det gamla
+            string nyText = Regex.Replace(
+                gammalText,
+                @"Pris:\s*\d+",
+                $"Pris: {nyttPris}"
+            );
+
+           
+            int index = listBox1.SelectedIndex;
+            listBox1.Items[index] = nyText;
+
+            // sPARA ÄNDRINGARNA SOM GJORTS
+            File.WriteAllLines(savefile, listBox1.Items.Cast<string>());
+
+            MessageBox.Show("Priset har uppdaterats!");
         }
+
     }
-}
-  
+    }
+
 
 
 

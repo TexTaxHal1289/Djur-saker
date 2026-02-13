@@ -33,7 +33,6 @@
             this.FOGEL = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.Btntabort = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.adoptera = new System.Windows.Forms.Button();
             this.Namnbox1 = new System.Windows.Forms.TextBox();
             this.ålderbox1 = new System.Windows.Forms.TextBox();
@@ -53,7 +52,7 @@
             this.LÄGGTILL = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.History = new System.Windows.Forms.Button();
-            this.Uppdatera = new System.Windows.Forms.Button();
+            this.Redigerapris = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -91,14 +90,14 @@
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 20;
-            this.listBox1.Location = new System.Drawing.Point(274, 0);
+            this.listBox1.Location = new System.Drawing.Point(243, 0);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(817, 444);
+            this.listBox1.Size = new System.Drawing.Size(887, 444);
             this.listBox1.TabIndex = 3;
             // 
             // Btntabort
             // 
-            this.Btntabort.Location = new System.Drawing.Point(300, 398);
+            this.Btntabort.Location = new System.Drawing.Point(300, 450);
             this.Btntabort.Name = "Btntabort";
             this.Btntabort.Size = new System.Drawing.Size(126, 33);
             this.Btntabort.TabIndex = 10;
@@ -106,18 +105,9 @@
             this.Btntabort.UseVisualStyleBackColor = true;
             this.Btntabort.Click += new System.EventHandler(this.Btntabort_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(735, 464);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 11;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // adoptera
             // 
-            this.adoptera.Location = new System.Drawing.Point(869, 398);
+            this.adoptera.Location = new System.Drawing.Point(946, 450);
             this.adoptera.Name = "adoptera";
             this.adoptera.Size = new System.Drawing.Size(137, 33);
             this.adoptera.TabIndex = 13;
@@ -296,27 +286,26 @@
             this.History.UseVisualStyleBackColor = true;
             this.History.Click += new System.EventHandler(this.History_Click);
             // 
-            // Uppdatera
+            // Redigerapris
             // 
-            this.Uppdatera.Location = new System.Drawing.Point(1131, 89);
-            this.Uppdatera.Name = "Uppdatera";
-            this.Uppdatera.Size = new System.Drawing.Size(112, 34);
-            this.Uppdatera.TabIndex = 29;
-            this.Uppdatera.Text = "Ladda om";
-            this.Uppdatera.UseVisualStyleBackColor = true;
-            this.Uppdatera.Click += new System.EventHandler(this.Uppdatera_Click);
+            this.Redigerapris.Location = new System.Drawing.Point(547, 450);
+            this.Redigerapris.Name = "Redigerapris";
+            this.Redigerapris.Size = new System.Drawing.Size(180, 33);
+            this.Redigerapris.TabIndex = 30;
+            this.Redigerapris.Text = "Redigera pris";
+            this.Redigerapris.UseVisualStyleBackColor = true;
+            this.Redigerapris.Click += new System.EventHandler(this.Redigerapris_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1305, 540);
-            this.Controls.Add(this.Uppdatera);
+            this.Controls.Add(this.Redigerapris);
             this.Controls.Add(this.History);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.adoptera);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.Btntabort);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.FOGEL);
@@ -339,7 +328,6 @@
         private System.Windows.Forms.Button FOGEL;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button Btntabort;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button adoptera;
         private System.Windows.Forms.TextBox Namnbox1;
         private System.Windows.Forms.TextBox ålderbox1;
@@ -359,7 +347,7 @@
         private System.Windows.Forms.CheckBox kastrerad;
         private System.Windows.Forms.CheckBox rovfågel;
         private System.Windows.Forms.Button History;
-        private System.Windows.Forms.Button Uppdatera;
+        private System.Windows.Forms.Button Redigerapris;
     }
 }
 

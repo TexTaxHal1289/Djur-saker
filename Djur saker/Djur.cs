@@ -17,7 +17,7 @@ namespace Djur_saker
         public string favoritmat = "";
         public bool kastrerad = true;
         public bool vaccinerad = true;
-
+        public string djurtyp = "";
         public virtual string Geinfo()
         {
             return $" Namn: {namn}, Färg: {färg}, Ålder: {ålder}, Pris: {pris}, Favoritmat: {favoritmat}, Kastrerad: {kastrerad}, Vaccinerad: {vaccinerad}";

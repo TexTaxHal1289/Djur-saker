@@ -14,6 +14,7 @@ namespace Djur_saker
 {
     public partial class Form2 : Form
     {
+        public string djurtyp;
         public string djurInfo;
         string historyFile = Path.Combine(Application.StartupPath, "history.txt");
         
@@ -22,9 +23,11 @@ namespace Djur_saker
         public Form2(string valtDjur)
         {
             InitializeComponent();
+            Nummerperson.MaxLength = 12;
             djurInfo = valtDjur;
         }
 
+        //adoption registrering knapp
         private void RegisterAdoption_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(Personnamn.Text) ||
@@ -35,10 +38,14 @@ namespace Djur_saker
                 MessageBox.Show("Fyll i alla fält!");
                 return;
             } 
-
+            // informationen om personen som adopterar
             string person = $"{Personnamn.Text} {efternamn.Text} (PN: {Nummerperson.Text})";
-            string adoptionRad = $"Adopterad av: {person}{Environment.NewLine}" +
+            string adoptionRad = $"Adopterad av: {person}, typ av djur: {djurtyp}" +
+                $"{Environment.NewLine}" +
     $"{djurInfo}";
+
+
+            // sparar adoptionen i historyfile.txt
 
             File.AppendAllText(historyFile, adoptionRad + Environment.NewLine);
 
@@ -50,6 +57,7 @@ namespace Djur_saker
             this.Close();
         }
 
+        
     }
     }
 
